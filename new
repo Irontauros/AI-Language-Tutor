@@ -1,0 +1,241 @@
+Technical Report: AI-Language-Tutor Backend Development
+1. Project Overview
+1. Project Overview
+AI-Language-Tutor is a mobile application designed to assist users in learning and interacting with different languages using AI-powered tools. The app provides multiple features, allowing users to engage with text, audio, images, and videos for seamless translation and comprehension.
+Users can create and manage conversation threads, where each thread is dedicated to a specific type of interaction, such as text-based conversations, music lyric analysis, audio file translations, image-based text recognition, and YouTube subtitle extraction and translation. The AI automatically detects the language and context, providing real-time translations while maintaining a structured and intuitive interface.
+The app also includes daily reminders to encourage consistent language practice, with user-configurable notification settings. Conversations are stored locally on the device, with options to delete specific threads or all stored data to ensure privacy and avoid excessive storage use.
+The application is developed primarily in Kotlin, using Android Studio for frontend design and implementation. It integrates machine learning models, optical character recognition (OCR), speech-to-text processing, and translation APIs to deliver accurate and interactive language-learning experiences. The app is designed to function without requiring a dedicated server, relying on free and open-source APIs for its core functionalities.
+________________________________________
+2. Technologies & Tools Used
+2.1 IntelliJ IDEA
+•	What it is: IntelliJ IDEA is a powerful IDE for Java, Kotlin, and other languages.
+•	Purpose: Used for backend development, code editing, debugging, and managing Gradle.
+•	How it's used:
+o	Writing backend logic in Kotlin.
+o	Managing project dependencies using Gradle.
+o	Running and testing the application.
+o	Debugging and inspecting API responses.
+2.2 Android Studio
+•	What it is: Android Studio is the official IDE for Android development.
+•	Purpose: It will be used for designing the UI using Jetpack Compose and connecting it to the backend.
+•	How it’s used:
+o	Writing frontend UI.
+o	Testing the Android app on an emulator.
+o	Managing Gradle dependencies for mobile development.
+2.3 Git
+•	What it is: A version control system to track changes and collaborate on code.
+•	Purpose:
+o	Managing code history and branches.
+o	Pushing and pulling updates from remote repositories (e.g., GitHub).
+•	How it’s used:
+o	git init → Initializes a Git repository.
+o	git add . → Adds files to staging.
+o	git commit -m "message" → Saves changes.
+o	git push origin main → Pushes to a remote repository.
+2.4 Kotlin
+•	What it is: A modern programming language designed for JVM and Android development.
+•	Purpose: Used for writing backend logic due to its concise syntax and strong type safety.
+•	How it’s used in this project:
+o	Writing API request handlers.
+o	Processing data from Ktor responses.
+o	Implementing business logic.
+2.5 Gradle
+•	What it is: A build automation tool that compiles code, manages dependencies, and executes tasks.
+•	Purpose:
+o	Handles dependencies like Ktor and Gson.
+o	Automates the build process.
+•	How it’s used:
+o	gradle init → Initializes the project.
+o	./gradlew build → Compiles the project.
+o	settings.gradle.kts → Configures project settings.
+o	build.gradle.kts → Manages dependencies.
+2.6 Ktor
+•	What it is: A lightweight asynchronous framework for making API calls in Kotlin.
+•	Purpose:
+o	Fetching data from external APIs.
+o	Sending user requests to a backend server.
+•	How it’s used:
+o	Creating HTTP clients to send API requests.
+o	Handling responses using Kotlin Coroutines.
+o	Processing JSON responses with Kotlin Serialization or Gson.
+2.7 TensorFlow Lite (TFLite)
+•	What it is: A lightweight version of TensorFlow optimized for mobile devices.
+•	Purpose: Used for on-device AI processing, such as speech-to-text and text translation.
+•	How it’s used:
+o	Running a local AI model for language translation.
+o	Processing user speech input without requiring an internet connection.
+2.8 ML Kit (Google)
+•	What it is: A machine learning library for Android apps.
+•	Purpose: Used for OCR (Optical Character Recognition) to extract text from images.
+•	How it’s used:
+o	Analyzing images to extract text from signs, book pages, or screens.
+o	Converting text into translatable content.
+2.9 Google Speech-to-Text API
+•	What it is: A service for converting spoken language into text.
+•	Purpose: Used to process voice messages or audio files sent by users.
+•	How it’s used:
+o	Extracting text from spoken words.
+o	Allowing voice-based language learning.
+2.10 Google Translate API (or LibreTranslate)
+•	What it is: A translation API that converts text between different languages.
+•	Purpose: Used for translating text, audio transcripts, and YouTube subtitles.
+•	How it’s used:
+o	Translating extracted text from OCR.
+o	Providing instant language conversion.
+2.11 YouTube Captions API
+•	What it is: A service that retrieves subtitles from YouTube videos.
+•	Purpose: Used to extract subtitles from YouTube videos, which can then be translated.
+•	How it’s used:
+o	Fetching subtitles for a video.
+o	Translating and displaying subtitles in the user’s preferred language.
+2.12 Jetpack Compose
+•	What it is: A modern UI toolkit for Android applications.
+•	Purpose: Used for creating the app’s UI efficiently with less boilerplate code.
+•	How it’s used:
+o	Designing conversation threads.
+o	Managing multiple interaction modes (text, audio, image).
+2.13 WorkManager
+•	What it is: A background task manager for Android.
+•	Purpose: Used for handling daily reminders to encourage user engagement.
+•	How it’s used:
+o	Scheduling notifications.
+o	Allowing users to configure daily reminders for practice sessions.
+2.14 Room Database
+•	What it is: A local database library for Android apps.
+•	Purpose: Used for storing and managing user conversations without requiring a cloud server.
+•	How it’s used:
+o	Saving conversation history.
+o	Allowing users to delete stored conversations manually.
+
+
+________________________________________
+4. How These Components Work Together
+1. Gradle Manages Dependencies
+•	You define libraries (e.g., Ktor, Gson, TensorFlow Lite, ML Kit) in build.gradle.kts.
+•	Gradle downloads and includes them in your project.
+2. Kotlin Backend Code
+•	You write API handlers and data processing logic in src/main/kotlin.
+•	The backend handles API calls, processes data, and interacts with external services.
+3. Ktor Handles API Requests
+•	You create HTTP clients using Ktor to send API requests.
+•	Ktor retrieves data from external APIs (e.g., Google Speech-to-Text, Google Translate, YouTube Captions).
+•	Responses are processed and converted into Kotlin objects.
+4. AI & Machine Learning Processing
+•	TensorFlow Lite handles AI tasks like speech recognition and translation locally on the device.
+•	ML Kit extracts text from images for OCR-based translations.
+•	Google Speech-to-Text API processes voice input and converts it into text.
+5. UI with Jetpack Compose
+•	The Android frontend (Jetpack Compose) sends requests to the backend.
+•	Displays conversations, translations, and interactions.
+6. WorkManager Handles Background Tasks
+•	Schedules daily notifications to remind users to practice.
+•	Manages automatic language-learning prompts.
+7. Room Database Stores Conversations
+•	Saves chat history for offline access.
+•	Allows users to review past interactions.
+8. Testing with JUnit
+•	You write tests in src/test/kotlin to verify backend logic.
+•	Ensures Ktor API calls and AI features work as expected.
+________________________________________
+
+
+
+
+
+
+
+
+
+
+3. Development Plan (Step-by-Step)
+Phase 1: Setup & Core AI Chat (March - Mid-April)
+1.	Project Setup – Create the app structure in Android Studio (or alternative).
+2.	Basic UI – Implement tab-based navigation for different features.
+3.	AI Chat (Text-Based) – Integrate basic AI chat functionality (text input, translation).
+4.	Conversation Storage (Local Database) – Implement local saving and deletion of chats.
+Phase 2: Music Tab (Mid-April - Mid-May)
+5.	Lyrics Translation – Allow users to input lyrics and get translations.
+6.	Audio File Support – Enable users to upload MP3/WAV files for lyrics extraction and translation.
+Phase 3: Image OCR & Extra Features (Mid-May - Early June)
+7.	Image-to-Text (OCR for Titles, Signs, etc.) – Implement text extraction from images.
+8.	Improve Conversation Management – Add features like renaming, organizing saved conversations.
+Phase 4: Debugging & Optimization (June)
+9.	Bug Fixing & Performance Improvements – Ensure smooth performance and fix major issues.
+10.	Final Testing & Submission – Polish the app for final presentation.
+
+
+
+
+
+
+
+
+
+________________________________________
+5: Complete Setup and Configuration of the Project (Start to Finish)
+
+1.	Installing IntelliJ IDEA
+If IntelliJ IDEA is not already installed, it can be downloaded from the official JetBrains website. After installation, open IntelliJ IDEA and check whether the Kotlin plugin is installed. This can be done by going to File → Settings → Plugins, then searching for "Kotlin" and installing it if necessary.
+
+2.	Installing Gradle
+Gradle does not need to be installed separately if the project is using the Gradle Wrapper, which allows Gradle to be run without a global installation. If a global installation is required, it can be downloaded from the official Gradle website, and after installation, the following command can be used to check if Gradle is properly installed:
+gradle -v	
+
+3.	Creating a New Project in IntelliJ IDEA
+To create a new project, follow these steps:
+1.	Open IntelliJ IDEA.
+2.	Click on New Project.
+3.	Choose Gradle as the build system.
+4.	Select Kotlin as the programming language.
+5.	Ensure that the Gradle DSL is set to Kotlin (.kts).
+6.	Set the Java Virtual Machine (JVM) version to 17.
+7.	If version control is needed, check the box for initializing a Git repository.
+8.	Click Create to generate the project.
+
+4.	Configuring Gradle Settings
+Inside the settings.gradle.kts file, ensure that the project name is correctly defined. The file should contain:
+rootProject.name = "AI-Language-Tutor"
+
+5.	Configuring the Gradle Build Script
+The build.gradle.kts file should include all necessary plugins, repositories, and dependencies. 
+
+6.	Setting Up the Source Code Directory
+The src/main/kotlin folder should contain the main application file. Inside this folder, create a file called App.kt.
+
+7.	Running the Initial Build
+To ensure that the project is correctly configured, a Gradle build should be run. This can be done in IntelliJ IDEA by:
+1.	Opening the Gradle tool window.
+2.	Clicking on the "Refresh" button to sync the project.
+3.	Running the "Build" task to compile and verify dependencies.
+Alternatively, the following command can be run from the terminal inside the project root directory:
+./gradlew build
+
+
+
+
+
+
+7.	Initializing Git and Connecting to a Remote Repository
+If Git has not been initialized yet, navigate to the project directory in the terminal and run:
+git init
+git add .
+git commit -m "Initial commit"
+To connect to a remote repository, such as GitHub, use the following command, replacing <repository-url> with the actual repository link:
+git remote add origin <repository-url>
+git push -u origin main
+
+8.	Running the Application
+Once everything is set up, the application can be executed using one of the following methods:
+1.	Click the green Run button in IntelliJ IDEA.
+2.	Use the Gradle tool window to run the application task.
+3.	Run the following command in the terminal:
+./gradlew run
+
+
+
+
+
+________________________________________
+7. Summary
+This project is structured to allow efficient backend development in Kotlin using Gradle, Retrofit, and other modern tools. The backend handles API requests, processes data, and communicates with a frontend (Android app). The project is managed using Git and developed in IntelliJ IDEA.
+
